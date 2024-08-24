@@ -2,7 +2,7 @@ import torch
 
 import open_clip
 
-from src import utils
+import utils
 
 
 class ImageEncoder(torch.nn.Module):
