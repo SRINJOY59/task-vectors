@@ -118,19 +118,13 @@ def finetune(args):
 
 
 if __name__ == '__main__':
-    data_location = '<your_data_location>'
-    models = ['ViT-B-32', 'ViT-B-16', 'ViT-L-14']
-    datasets = ['Cars', 'DTD', 'EuroSAT', 'GTSRB', 'MNIST', 'RESISC45', 'SUN397', 'SVHN']
+    data_location = 'data'
+    models = ['ViT-B-32']
+    datasets = ['MNIST']
     epochs = {
-        'Cars': 35,
-        'DTD': 76,
-        'EuroSAT': 12,
-        'GTSRB': 11,
+
         'MNIST': 5,
-        'RESISC45': 15,
-        'SUN397': 14,
-        'SVHN': 4,
-        'ImageNet': 4
+
     }
 
     for model in models:
