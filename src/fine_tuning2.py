@@ -21,6 +21,11 @@ def finetune(args):
     model = create_model('deit_tiny_patch16_224', pretrained=True, num_classes=10)
     model = model.to(args.device)
     
+    os.makedirs(args.save, exist_ok=True)
+    pretrained_model_path = os.path.join(args.save, 'deit_tiny_pretrained.pth')
+    torch.save(model.state_dict(), pretrained_model_path)
+    print(f"Initial pretrained model saved to {pretrained_model_path}")
+    
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.AdamW(model.parameters(), lr=args.lr)
     
@@ -41,14 +46,13 @@ def finetune(args):
             if i % args.print_every == 0:
                 print(f"Epoch [{epoch + 1}/{args.epochs}], Step [{i}/{len(train_loader)}], Loss: {running_loss / (i + 1):.4f}")
     
-    os.makedirs(args.save, exist_ok=True)
-    model_path = os.path.join(args.save, 'deit_tiny_mnist_finetuned.pth')
-    torch.save(model.state_dict(), model_path)
-    print(f"Model saved to {model_path}")
+    finetuned_model_path = os.path.join(args.save, 'deit_tiny_mnist_finetuned.pth')
+    torch.save(model.state_dict(), finetuned_model_path)
+    print(f"Fine-tuned model saved to {finetuned_model_path}")
 
 if __name__ == '_main_':
     class Args:
-        data_location = 'data'
+        data_location = './data'
         batch_size = 128
         lr = 1e-4
         epochs = 3
